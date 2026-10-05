@@ -1,0 +1,53 @@
+digraph G {
+  graph [rankdir=TB, fontname="Noto Sans CJK TC", fontsize=30, labelloc=t, label="Picasso 的錢去了哪裡（Ethereum 鏈上，USDC/USDT，金額為 Picasso 的份額，USD）\n2025-08 ～ 2025-11 ・ 查詢日 2026-10-04", nodesep=0.35, ranksep=0.7, pad=0.4, dpi=110];
+  node  [shape=box, style="rounded,filled", fontname="Noto Sans CJK TC", fontsize=24, margin="0.25,0.12", penwidth=2];
+  edge  [fontname="Noto Sans CJK TC", fontsize=22, penwidth=2.5, color="#444444"];
+
+  bo   [label="Picasso 的交易所帳戶\nMEXC / Binance / Crypto.com\n送出 171,384.57 USDC\n+ 0.0004273 BTC", fillcolor="#cfe8ff"];
+
+  d12  [label="詐騙入金 #1 #2\n0x9e4a… / 0xEF07…\n6,111.38", fillcolor="#ffd6d6"];
+  d3   [label="詐騙入金 #3\n0xc5D4…\n21,161.05", fillcolor="#ffd6d6"];
+  d4   [label="詐騙入金 #4\n0xdb68…4002\n109,046.12", fillcolor="#ffd6d6"];
+  d5   [label="詐騙入金 #5\n0xdca1…ca60\n35,066.02", fillcolor="#ffd6d6"];
+  dbtc [label="詐騙 BTC 地址\nbc1ptd59…", fillcolor="#ffd6d6"];
+
+  h1   [label="H1 歸集錢包\n0x0bFCe057…\n(在錢包內 USDC→USDT)", fillcolor="#ffe9c7"];
+  h2   [label="H2 歸集錢包\n0xc5D0af89…", fillcolor="#ffe9c7"];
+  pc   [label="出金錢包 C\n0x0457DbCc…", fillcolor="#ffe9c7"];
+
+  x1   [label="X1 洗錢樞紐 0xDA214237…\n約 50,782\n(單月進出 >5,700 萬 USDT；\n未標記；餘額 0)", fillcolor="#e0e0e0"];
+  x2   [label="X2 歸集樞紐 0xfEF2a9E0…\n(2025-10-16 被 Tether 凍結)", fillcolor="#e0e0e0"];
+  x34  [label="X3 0xDe8d7BdD… / X4 0x97915F7d…\n(X4 2025-10-16 被 Tether 凍結)", fillcolor="#e0e0e0"];
+  x5   [label="X5 0x11235534…\n約 77,836（+ 可能 7,700）\n高頻服務地址、未標記\n（Picasso 的 PDF 稱 Bitget：未證實）", fillcolor="#d9d9d9"];
+  y    [label="Y1/Y2/Y3/Y5 OTC 型中轉\n0xAddC… 12,000 ・ 0x53fF… 9,815\n0xD4D6… 3,000 ・ 0x132E… 251\n(未標記；餘額 0)", fillcolor="#e0e0e0"];
+  back [label="以「提領」名義退回 Picasso\n10,000（Picasso 自己的錢）", fillcolor="#d7f5d7"];
+  bin  [label="Binance BTC 入金地址\n13ZncoU2… → Binance 儲備錢包", fillcolor="#fff3a8"];
+
+  bo -> d12 [label=" 8/11–8/18"];
+  bo -> d3  [label=" 8/22–8/25"];
+  bo -> d4  [label=" 9/04–9/18"];
+  bo -> d5  [label=" 10/20–10/30"];
+  bo -> dbtc [label=" 8/11"];
+
+  d12 -> h1 [label=" 6,111 (9/01)"];
+  d3  -> h1 [label=" 3,325 (9/01)"];
+  d3  -> h2 [label=" 17,836 (8/30)"];
+  d4  -> h2 [label=" 60,000 (9/04)"];
+  d4  -> h1 [label=" 30,968 (9/15, 9/17)"];
+  d4  -> x1 [label=" 12,078 經 R1/R2/R4\n(9/09–9/24)"];
+  d4  -> x2 [label=" 6,000 經出金錢包 A\n(9/22)", style=dashed];
+  h1  -> x1 [label=" 約 38,704 經 R1–R4\n(9/05–9/21)"];
+  h1  -> x2 [label=" 約 1,700", style=dashed];
+  h2  -> x2 [label=" 77,836\n(9/03, 9/17)"];
+  x2  -> x34 [label=" 換成 USDT 後轉出\n(9/03, 9/22, 9/25)"];
+  x34 -> x5 [label=" 每筆 5 萬 USDT 分批\n(9/03–10/01)"];
+  d5  -> pc [label=" 32,066"];
+  d5  -> y  [label=" 3,000 經 R7"];
+  pc  -> back [label=" 10/22"];
+  pc  -> y  [label=" 22,066 經 R2\n(11/01–11/10)"];
+  dbtc -> bin [label=" 9/01"];
+
+  note [shape=note, fillcolor="#ffffff", fontsize=20, label="實線＝有 tx 直接對上（高/中信心）\n虛線＝混合資金、按比例或可能經第三方\n所有詐騙地址與中轉地址目前 USDC/USDT 餘額 ≈ 0\n被凍結的 74.5 萬 USDT 依 LIBR 計算幾乎不含 Picasso 的錢\n（只有 9/18 那 6,000 有可能，信心低）"];
+  {rank=sink; note;}
+  x5 -> note [style=invis];
+}
